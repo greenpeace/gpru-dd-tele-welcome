@@ -11,6 +11,8 @@ class DirectDonor {
         'recruited_by', # name of a Direct Donor Recruiter
 
         'donation_time', 'donation_amount', # first donation datetime and amount
+
+        'city', 'address',
     );
 
     private $_props = array();
