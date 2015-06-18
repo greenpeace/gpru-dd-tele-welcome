@@ -4,13 +4,15 @@ require_once 'PHPExcel.php';
 class TeleFile extends PHPExcel {
     private $_layout = array(
         array('header' => "Time",           'donor_field' => 'donation_time'),
-        array('header' => "Recruited By",   'donor_field' => 'recruited_by'),
-        array('header' => "Email",          'donor_field' => 'email'),
-        array('header' => "Last Name",      'donor_field' => 'last_name'),
         array('header' => "First Name",     'donor_field' => 'first_name'),
+        array('header' => "Last Name",      'donor_field' => 'last_name'),
         array('header' => "Middle Name",    'donor_field' => 'middle_name'),
         array('header' => "Amount",         'donor_field' => 'donation_amount'),
+        array('header' => "Email",          'donor_field' => 'email'),
         array('header' => "Telephone",      'donor_field' => 'phone_number'),
+        array('header' => "Recruited By",   'donor_field' => 'recruited_by'),
+        array('header' => "City",           'donor_field' => 'city'),
+        array('header' => "Address",        'donor_field' => 'address'),
     );
 
     private function _num_to_letter($num) {
@@ -48,7 +50,7 @@ class TeleFile extends PHPExcel {
 
     public function add_donors($donors) {
         $sheet = $this->getActiveSheet();
-        
+
         foreach ($donors as $donor) {
             $row = array();
 
@@ -60,7 +62,7 @@ class TeleFile extends PHPExcel {
             ++$this->_max_row;
         }
     }
-    
+
     public function save($filename) {
         $objWriter = new PHPExcel_Writer_Excel2007($this);
         $objWriter->save($filename);
