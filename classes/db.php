@@ -78,4 +78,15 @@ class DB {
 
         $this->dbh->prepare("REPLACE INTO meta(name, value) VALUES (?, ?)")->execute(array('last_dd_fetch_order', $this->new_last_fetched_order));
     }
+
+    /*
+        when called with no parameter, returns last_dd_fetch_order from the database.
+        When called with a parameter, updates last_dd_fetch_order in the database.
+    */
+    public function last_fetch_date($last_fetch_date = '') {
+        if ($last_fetch_date == '')
+            return $this->dbh->query("SELECT value FROM meta WHERE name = 'last_dd_fetch_date'")->fetchColumn();
+        else
+            $this->dbh->prepare("REPLACE INTO meta(name, value) VALUES (?, ?)")->execute(array('last_dd_fetch_date', $last_fetch_date));
+    }
 }

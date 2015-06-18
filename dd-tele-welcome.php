@@ -58,11 +58,22 @@ if (count($new_donors) > 0) {
 
     $mg->send_text($config['email_from'], $config['email_to'], $config['email_subject'], $text, $config['email_cc'], "@$fileName.zip");
 
+    # store last date when we recruited a donor in a database, unless we're in a test mode
+    if (@$config['test_order'] == '') {
+        $db->last_fetch_date($max_date);
+    }
+
     system("rm $fileName.zip");
 } else {
+    $last_fetch_date = $db->last_fetch_date();
+
+    $start = 'Мы очень расстроены, но у нас не было привлечено новых сторонников.';
+    if ($last_fetch_date) {
+        $start = "Мы очень расстроены, но c $last_fetch_date у нас не было привлечено новых сторонников.";
+    }
     $text = "Добрый день, коллеги
 
-Мы очень расстроены, но с момента прошлой отправки у нас не было привлечено новых сторонников.
+$start
 Сегодня у Валентины есть возможность передохнуть.
 
 Спасибо.
