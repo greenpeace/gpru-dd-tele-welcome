@@ -19,19 +19,23 @@ class DB {
 
     /*
         Returns an array of new direct donors.
-        "new direct donor" is specified as one, who has paylog.OrderID greater than the last_fetched_order stored in the database
+        "new direct donor" is specified as one, who has paylog.OrderID greater than the $last_fetched_order passed as a parameter
+        if $last_fetched_order is not passed, the value of last fetched OrderID is read from the database
+        if the database has no such value, last DirectDonor order is saved into $this->new_last_fetched_order, and an empty array is returned
     */
-    public function get_new_donors() {
+    public function get_new_donors($last_fetched_order = NULL) {
         if ($this->new_last_fetched_order !== NULL) {
             die("you forgot to commit previous donors");
         }
 
-        $last_fetched_order = $this->dbh->query("SELECT value FROM meta WHERE name = 'last_dd_fetch_order'")->fetchColumn();
+        if ($last_fetched_order == NULL) {
+            $last_fetched_order = $this->dbh->query("SELECT value FROM meta WHERE name = 'last_dd_fetch_order'")->fetchColumn();
 
-        if (!$last_fetched_order) {
-            $this->new_last_fetched_order = $this->dbh->query("SELECT MAX(OrderID) FROM paylog WHERE (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND TransactionID > 0 AND InitialOrderID = 0")->fetchColumn();
+            if (!$last_fetched_order) {
+                $this->new_last_fetched_order = $this->dbh->query("SELECT MAX(OrderID) FROM paylog WHERE (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND TransactionID > 0 AND InitialOrderID = 0")->fetchColumn();
 
-            return array();
+                return array();
+            }
         }
 
         $sth = $this->dbh->prepare("
