@@ -41,7 +41,7 @@ class DB {
         $sth = $this->dbh->prepare("
             SELECT p.OrderID, p.SubmitDate AS donation_time, r.Name AS recruited_by, p.User AS recruiter_id, p.Email AS email,
                 p.LastName AS last_name, p.FirstName AS first_name, p.MiddleName AS middle_name, p.Amount AS donation_amount,
-                p.Telephone AS phone_number, p.ChronopayCity as city, p.ChronopayAddress as address
+                p.Telephone AS phone_number, p.ChronopayCity AS city, p.ChronopayAddress AS address, p.CustomerID AS customer_id
             FROM paylog AS p
             LEFT JOIN dd_recruiters AS r ON p.User = r.Login
             WHERE

@@ -11,6 +11,7 @@ class TeleFile extends PHPExcel {
         array('header' => "Email",          'donor_field' => 'email'),
         array('header' => "Telephone",      'donor_field' => 'phone_number'),
         array('header' => "Recruited By",   'donor_field' => 'recruited_by'),
+        array('header' => "Customer ID",    'donor_field' => 'customer_id'),
         array('header' => "City",           'donor_field' => 'city'),
         array('header' => "Address",        'donor_field' => 'address'),
     );

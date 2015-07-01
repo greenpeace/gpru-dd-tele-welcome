@@ -13,6 +13,8 @@ class DirectDonor {
         'donation_time', 'donation_amount', # first donation datetime and amount
 
         'city', 'address',
+
+        'customer_id',
     );
 
     private $_props = array();
