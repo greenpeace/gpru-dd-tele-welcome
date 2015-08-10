@@ -32,7 +32,14 @@ class DB {
             $last_fetched_order = $this->dbh->query("SELECT value FROM meta WHERE name = 'last_dd_fetch_order'")->fetchColumn();
 
             if (!$last_fetched_order) {
-                $this->new_last_fetched_order = $this->dbh->query("SELECT MAX(OrderID) FROM paylog WHERE (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND TransactionID > 0 AND InitialOrderID = 0")->fetchColumn();
+                $this->new_last_fetched_order = $this->dbh->query("
+			SELECT MAX(OrderID)
+			FROM paylog
+			WHERE
+				(LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND TransactionID > 0
+				AND InitialOrderID = 0
+				AND (iAppealID <> 2084 AND referer NOT LIKE 'https://join.greenpeace.ru/direct_dialog/re%')
+			")->fetchColumn();
 
                 return array();
             }
@@ -45,7 +52,9 @@ class DB {
             FROM paylog AS p
             LEFT JOIN dd_recruiters AS r ON p.User = r.Login
             WHERE
-                (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND OrderID > ? AND TransactionID > 0 AND InitialOrderID = 0
+                (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND OrderID > ? AND TransactionID > 0
+		AND InitialOrderID = 0
+		AND (iAppealID <> 2084 AND referer NOT LIKE 'https://join.greenpeace.ru/direct_dialog/re%')
             ORDER BY SubmitDate DESC
         ");
         $sth->execute(array($last_fetched_order));
