@@ -14,6 +14,7 @@ class TeleFile extends PHPExcel {
         array('header' => "Customer ID",    'donor_field' => 'customer_id'),
         array('header' => "City",           'donor_field' => 'city'),
         array('header' => "Address",        'donor_field' => 'address'),
+        array('header' => "Transaction ID", 'donor_field' => 'transaction_id'),
     );
 
     private function _num_to_letter($num) {

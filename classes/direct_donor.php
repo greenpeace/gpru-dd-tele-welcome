@@ -14,7 +14,7 @@ class DirectDonor {
 
         'city', 'address',
 
-        'customer_id',
+        'customer_id', 'transaction_id'
     );
 
     private $_props = array();

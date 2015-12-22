@@ -33,13 +33,13 @@ class DB {
 
             if (!$last_fetched_order) {
                 $this->new_last_fetched_order = $this->dbh->query("
-			SELECT MAX(OrderID)
-			FROM paylog
-			WHERE
-				(LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND TransactionID > 0
-				AND InitialOrderID = 0
-				AND (iAppealID <> 2084 AND referer NOT LIKE 'https://join.greenpeace.ru/direct_dialog/re%')
-			")->fetchColumn();
+                    SELECT MAX(OrderID)
+                    FROM paylog
+                    WHERE
+                        (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND TransactionID > 0
+                        AND InitialOrderID = 0
+                        AND (iAppealID <> 2084 AND referer NOT LIKE 'https://join.greenpeace.ru/direct_dialog/re%')
+                    ")->fetchColumn();
 
                 return array();
             }
@@ -49,12 +49,13 @@ class DB {
             SELECT p.OrderID, p.SubmitDate AS donation_time, r.Name AS recruited_by, p.User AS recruiter_id, p.Email AS email,
                 p.LastName AS last_name, p.FirstName AS first_name, p.MiddleName AS middle_name, p.Amount AS donation_amount,
                 p.Telephone AS phone_number, p.ChronopayCity AS city, p.ChronopayAddress AS address, p.CustomerID AS customer_id
+                p.TransactionID AS transaction_id
             FROM paylog AS p
             LEFT JOIN dd_recruiters AS r ON p.User = r.Login
             WHERE
                 (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND OrderID > ? AND TransactionID > 0
-		AND InitialOrderID = 0
-		AND (iAppealID <> 2084 AND referer NOT LIKE 'https://join.greenpeace.ru/direct_dialog/re%')
+                AND InitialOrderID = 0
+                AND (iAppealID <> 2084 AND referer NOT LIKE 'https://join.greenpeace.ru/direct_dialog/re%')
             ORDER BY SubmitDate DESC
         ");
         $sth->execute(array($last_fetched_order));
