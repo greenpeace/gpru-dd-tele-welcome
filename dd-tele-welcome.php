@@ -2,7 +2,7 @@
 require_once 'config.php';
 require_once 'classes/db.php';
 require_once 'classes/tele_file.php';
-require_once 'classes/mailgun.php';
+require_once 'classes/email.php';
 
 # password goes straight into system() call, so we make a whitelist of characters that probably won't do harm
 if ($config['archive_password'] == '' || preg_match("/[^!#$%&()*+,\\-.\\/0-9:;<=>?@A-Z\\[\\]\\^_{|}~]/i", $config['archive_password'])) {
@@ -25,7 +25,7 @@ function get_donor_dates($donors) {
 }
 
 $db = new DB($config['db_connection_string'], $config['db_user'], $config['db_password']);
-$mg = new Mailgun($config['mailgun_domain'], $config['mailgun_userpwd']);
+#$mg = new Mailgun($config['mailgun_domain'], $config['mailgun_userpwd']);
 
 $new_donors = $db->get_new_donors(@$config['test_order']);
 
@@ -56,7 +56,7 @@ if (count($new_donors) > 0) {
 Спасибо.
 Хорошего дня!";
 
-    $mg->send_text($config['email_from'], $config['email_to'], $config['email_subject'], $text, $config['email_cc'], "@$fileName.zip");
+    send_text_email($config['email_from_name'], $config['email_from'], $config['email_to_name'], $config['email_to'], $config['email_subject'], $text, $config['email_cc_name'], $config['email_cc'], "$fileName.zip");
 
     # store last date when we recruited a donor in a database, unless we're in a test mode
     if (@$config['test_order'] == '') {
@@ -79,7 +79,7 @@ $start
 Спасибо.
 Хорошего дня!";
 
-    $mg->send_text($config['email_from'], $config['email_to'], $config['email_subject'], $text, $config['email_cc']);
+    send_text_email($config['email_from_name'], $config['email_from'], $config['email_to_name'], $config['email_to'], $config['email_subject'], $text, $config['email_cc_name'], $config['email_cc']);
 }
 
 if (@$config['test_order'] == '') {

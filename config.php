@@ -5,11 +5,11 @@ $config = array(
     'db_user' => '<user>',
     'db_password' => '<password>',
 
-    'mailgun_domain' => '<mailgun domain>',
-    'mailgun_userpwd' => '<mailgun credentials>',
-
+    'email_from_name' => '<from name>',
     'email_from' => '<from address>',
+    'email_to_name' => '<to name>',
     'email_to' => '<to address>',
+    'email_cc_name' => '',
     'email_cc' => '',
     'email_subject' => '<subject>',
 
