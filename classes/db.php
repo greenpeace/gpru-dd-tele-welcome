@@ -36,7 +36,7 @@ class DB {
                     SELECT MAX(OrderID)
                     FROM paylog
                     WHERE
-                        (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND TransactionID > 0
+                        (LEFT(CustomerID,6) = '006560') AND TransactionID > 0
                         AND InitialOrderID = 0
                         AND (iAppealID <> 2084 AND referer NOT LIKE 'https://join.greenpeace.ru/direct_dialog/re%')
                     ")->fetchColumn();
