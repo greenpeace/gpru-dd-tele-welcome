@@ -24,7 +24,7 @@ function get_donor_dates($donors) {
     return array($min_date, $max_date);
 }
 
-$db = new DB($config['db_connection_string'], $config['db_user'], $config['db_password']);
+$db = new DB();
 #$mg = new Mailgun($config['mailgun_domain'], $config['mailgun_userpwd']);
 
 $new_donors = $db->get_new_donors(@$config['test_order']);

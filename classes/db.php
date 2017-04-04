@@ -1,13 +1,12 @@
 <?php
 require_once 'classes/direct_donor.php';
+require_once 'GP/db.php';
 
 class DB {
     private $dbh = NULL;
 
-    public function __construct($connection_string, $user, $password) {
-        $this->dbh = new PDO($connection_string, $user, $password);
-        $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->dbh->exec("SET NAMES utf8");
+    public function __construct() {
+        $this->dbh = dbh('join_greenpeace');
     }
 
     /*
@@ -51,7 +50,7 @@ class DB {
                 p.Telephone AS phone_number, p.ChronopayCity AS city, p.ChronopayAddress AS address, p.CustomerID AS customer_id,
                 p.TransactionID AS transaction_id
             FROM paylog AS p
-            LEFT JOIN dd_recruiters AS r ON p.User = r.Login
+            LEFT JOIN dd_recruiters AS r ON p.User = r.Login AND IFNULL(r.DateEnd, '') = ''
             WHERE
                 (LEFT(CustomerID,6) = '006560' OR referer LIKE '%direct_dialog%') AND OrderID > ? AND TransactionID > 0
                 AND InitialOrderID = 0

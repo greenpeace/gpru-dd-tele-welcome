@@ -1,6 +1,6 @@
 <?php
-require_once 'vendor/PHPMailer/class.phpmailer.php';
-require_once 'vendor/PHPMailer/class.smtp.php';
+require_once 'PHPMailer/class.phpmailer.php';
+require_once 'PHPMailer/class.smtp.php';
 
 function send_text_email($emailFromName, $emailFrom, $emailToName, $emailTo, $subject, $text, $emailCCName, $emailCC, $attachment)
 {

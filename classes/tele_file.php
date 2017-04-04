@@ -1,4 +1,4 @@
-<?
+<?php
 require_once 'PHPExcel.php';
 
 class TeleFile extends PHPExcel {

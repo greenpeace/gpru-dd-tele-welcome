@@ -1,10 +1,6 @@
 <?php
 
 $config = array(
-    'db_connection_string' => 'mysql:host=<host>;port=<port>;dbname=<dbname>',
-    'db_user' => '<user>',
-    'db_password' => '<password>',
-
     'email_from_name' => '<from name>',
     'email_from' => '<from address>',
     'email_to_name' => '<to name>',
