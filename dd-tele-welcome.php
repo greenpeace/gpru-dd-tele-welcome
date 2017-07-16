@@ -1,21 +1,18 @@
 <?php
+namespace GPRU\DDTeleWelcome;
 
 use GPRU\Logger;
-use DDTeleWelcome\NewDonationsProcessor;
-// use
+use GPRU\DDTeleWelcome\NewDonationsProcessor;
 
-// require_once 'new_donations_processor.php';
+const AUTOMAILS_TYPE = 'dd_welcome_calls';
 
 $logger = Logger::getLogger('automails');
 
 $logger->info('START');
 
-//try {
-
-    //new_donations_processor();
-    $new_donations_processor = new NewDonationsProcessor($logger);
-    $new_donations_processor->run();
 try {
+    $p = new NewDonationsProcessor();
+    $p->withLogger($logger)->run();
 } catch (Exception $e) {
     $logger->error("died: ".$e->getMessage(), $e);
 }
