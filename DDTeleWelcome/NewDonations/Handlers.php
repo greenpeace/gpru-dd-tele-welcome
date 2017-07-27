@@ -45,8 +45,7 @@ class Handlers
 Спасибо.
 Хорошего дня!";
 
-        $email = new Email();
-        $email->setFrom(Settings::get('dd_welcome_calls.mail_from'), 'DD Tele Welcome');
+        $email = new Email(Settings::get('dd_welcome_calls.mail_from'), 'DD Tele Welcome');
         $email->addAddresses($args['mail_to']);
         $email->Subject = $args['mail_subject'];
         $email->addCC($args['mail_cc']);
@@ -94,8 +93,7 @@ $start
 Спасибо.
 Хорошего дня!";
 
-        $email = new Email();
-        $email->setFrom(Settings::get('dd_welcome_calls.mail_from'), 'DD Tele Welcome');
+        $email = new Email(Settings::get('dd_welcome_calls.mail_from'), 'DD Tele Welcome');
         $email->addAddresses($args['mail_to']);
         $email->Subject = $args['mail_subject'];
         $email->addCC($args['mail_cc']);

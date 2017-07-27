@@ -4,6 +4,8 @@ use GPRU\ORM\DBJoin\DDOrdersCollection;
 use GPRU\ORM\DBJoin\DDDonationsCollection;
 use GPRU\ORM\DBJoin\ChronopayDonationsCollection;
 
+require 'GPRU/global_autoloader.php';
+
 $ai = file_get_contents('ai.txt');
 $time = '2017-01-01 12:34:56';
 

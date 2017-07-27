@@ -6,6 +6,9 @@ use GPRU\DDTeleWelcome\NewDonationsProcessor;
 
 const AUTOMAILS_TYPE = 'dd_welcome_calls';
 
+$autoloader = require 'GPRU/global_autoloader.php';
+$autoloader->registerClassPrefix('\\GPRU\\DDTeleWelcome\\', './DDTeleWelcome');
+
 $logger = Logger::getLogger('automails');
 
 $logger->info('START');

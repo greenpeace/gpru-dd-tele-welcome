@@ -15,7 +15,7 @@ class NewDonationsProcessor
 
     public function __construct()
     {
-        $this->meta = new AutomailsMeta(\GPRU\DDTeleWelcome\AUTOMAILS_TYPE);
+        $this->meta = new AutomailsMeta(AUTOMAILS_TYPE);
     }
 
     public function withLogger($logger)
